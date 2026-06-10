@@ -1,0 +1,80 @@
+﻿<Window x:Class="ProductManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"     
+        xmlns:local="clr-namespace:ProductManager"     
+        mc:Ignorable="d"   
+        Title="MainWindow" Height="450" Width="800"> 
+    
+    
+    <Grid Margin="10">
+        <!-- je divise mon Fenster en 4 parties horizontales, chaque partie prend une taille automatique 'auto' -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- *: prend l'espace qui reste -->
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Eingabefelder -->
+        <!-- 1ere ligne horizontale du Grid, Grid.Row="0"-->
+        <StackPanel Orientation="Horizontal"  Margin="0 0 0 10">
+            <StackPanel Width="200">
+                <TextBlock Text="Produktname"/>
+                <TextBox x:Name="NameBox" Margin="0 5 20 0"/>
+            </StackPanel>
+
+            <StackPanel Width="200">
+                <TextBlock Text="Preis"/>
+                <TextBox x:Name="PriceBox" Margin="0 5 20 0"/>
+            </StackPanel>
+
+            <StackPanel Width="200">
+                <TextBlock Text="Kategorie"/>
+                <TextBox x:Name="CategoryBox" Margin="0 5 0 0"/>
+            </StackPanel>
+        </StackPanel>
+        
+        
+
+        <!-- Buttons -->
+        <!-- Row="1" : 2e ligne horizontale du Grid, ce StackPanel est placé dans la deuxième ligne du Grid (index 1) -->
+        <!-- Click : Méthode C# appelée lors du clic de bouton / Content: texte affiche sur le bouton-->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 0 0 10">
+            <Button Content="Hinzufügen" Width="120" Margin="0 0 10 0"
+                    Click="AddProduct_Click"/>
+            <Button Content="Aktualisieren" Width="120" Margin="0 0 10 0"
+                    Click="UpdateProduct_Click"/>
+            <Button Content="Löschen" Width="120"
+                    Click="DeleteProduct_Click"/>
+        </StackPanel>
+        
+        
+
+        <!-- Produktliste -->
+        <!-- contrôle qui affiche une liste de produits/ x:Name="ProductList" : nom utilisé en C# pour accéder à la liste.  Grid.Row="2" : placé dans la 3ᵉ ligne du Grid (index 2)-->
+        <!-- ListView.View: définir comment les éléments seront affichés / Gridview: Mode tableau (4 colonnes), parfait pour afficher des objets CRUD-->
+        <ListView x:Name="ProductList"  Grid.Row="2" SelectionChanged="ProductList_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Name" Width="180" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Preis" Width="100" DisplayMemberBinding="{Binding Price}"/>
+                    <GridViewColumn Header="Kategorie" Width="150" DisplayMemberBinding="{Binding Category}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        
+
+        <!-- Status -->
+        <!-- <TextBlock> : zone de texte simple/ x:Name="StatusText":utilisé en C# pour afficher des messages (ex : “Produkt hinzugefügt”).-->
+        <TextBlock x:Name="StatusText" Grid.Row="3" Margin="0 10 0 0"
+                   Foreground="Gray"/>
+
+
+
+    </Grid>
+</Window>
